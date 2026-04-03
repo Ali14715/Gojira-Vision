@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,14 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = User::where('role', 'karyawan')->latest()->paginate(10);
+        $employees = User::where('role', 'karyawan')->with('department')->latest()->paginate(10);
         return view('admin.employees.index', compact('employees'));
     }
 
     public function create()
     {
-        return view('admin.employees.create');
+        $departments = Department::all();
+        return view('admin.employees.create', compact('departments'));
     }
 
     public function store(Request $request)
@@ -26,6 +28,7 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             'position' => 'nullable|string|max:255',
+            'department_id' => 'nullable|exists:departments,id',
             'phone' => 'nullable|string|max:20',
         ]);
 
@@ -39,7 +42,8 @@ class EmployeeController extends Controller
 
     public function edit(User $employee)
     {
-        return view('admin.employees.edit', compact('employee'));
+        $departments = Department::all();
+        return view('admin.employees.edit', compact('employee', 'departments'));
     }
 
     public function update(Request $request, User $employee)
@@ -49,6 +53,7 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:users,email,' . $employee->id,
             'password' => 'nullable|min:6|confirmed',
             'position' => 'nullable|string|max:255',
+            'department_id' => 'nullable|exists:departments,id',
             'phone' => 'nullable|string|max:20',
         ]);
 

@@ -26,7 +26,9 @@
 
             <div class="text-center mb-4">
                 <div class="mb-3">
-                    <i class="bi bi-eye-fill" style="font-size: 3rem; color: var(--gv-green);"></i>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="56" height="56" style="color: var(--gv-green);">
+                        <path d="M2,22 L2,17 L1,14 L2,12 L4,7 L5,12 L6,10 L8,4 L10,10 L11,8 L13,1.5 L15,9 L16.5,8 L18,9.5 L20,10.5 L22,11.5 L23,12.5 L22,14 L19,13.5 L21,15.5 L23,17 L21,18.5 L18,17 L14.5,18.5 L10,20 L6,21 Z"/>
+                    </svg>
                 </div>
                 <h2 class="fw-bold login-title" style="letter-spacing: -1px;">Gojira Vision</h2>
                 <p class="login-subtitle">Sistem Absensi Citra Wajah</p>

@@ -19,6 +19,7 @@
                         <th>#</th>
                         <th>Nama</th>
                         <th>Email</th>
+                        <th>Departemen</th>
                         <th>Jabatan</th>
                         <th>Telepon</th>
                         <th>Wajah</th>
@@ -31,6 +32,7 @@
                             <td>{{ $employees->firstItem() + $index }}</td>
                             <td>{{ $emp->name }}</td>
                             <td>{{ $emp->email }}</td>
+                            <td>{{ $emp->department?->name ?? '-' }}</td>
                             <td>{{ $emp->position ?? '-' }}</td>
                             <td>{{ $emp->phone ?? '-' }}</td>
                             <td>
@@ -56,7 +58,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center text-muted py-4">Belum ada data karyawan.</td>
+                            <td colspan="8" class="text-center text-muted py-4">Belum ada data karyawan.</td>
                         </tr>
                     @endforelse
                 </tbody>

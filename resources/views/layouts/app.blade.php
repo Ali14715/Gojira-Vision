@@ -21,7 +21,9 @@
         <nav class="sidebar d-flex flex-column" style="width: 260px; min-width: 260px;">
             <div class="brand">
                 <a class="text-decoration-none d-flex align-items-center" href="#">
-                    <i class="bi bi-eye-fill fs-4 me-2" style="color: var(--gv-green);"></i>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" class="me-2" style="color: var(--gv-green);">
+                        <path d="M2,22 L2,17 L1,14 L2,12 L4,7 L5,12 L6,10 L8,4 L10,10 L11,8 L13,1.5 L15,9 L16.5,8 L18,9.5 L20,10.5 L22,11.5 L23,12.5 L22,14 L19,13.5 L21,15.5 L23,17 L21,18.5 L18,17 L14.5,18.5 L10,20 L6,21 Z"/>
+                    </svg>
                     <h5 class="mb-0">Gojira Vision</h5>
                 </a>
             </div>
@@ -42,9 +44,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}"
+                           href="{{ route('admin.departments.index') }}">
+                            <i class="bi bi-building"></i> Departemen
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.attendances.*') ? 'active' : '' }}"
                            href="{{ route('admin.attendances.index') }}">
                             <i class="bi bi-calendar-check-fill"></i> Laporan Absensi
+                        </a>
+                    </li>
+                    <li class="nav-section mt-3">Pengaturan</li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.schedules.*') ? 'active' : '' }}"
+                           href="{{ route('admin.schedules.index') }}">
+                            <i class="bi bi-calendar-week"></i> Jadwal Kerja
                         </a>
                     </li>
                     <li class="nav-section mt-3">Kiosk</li>

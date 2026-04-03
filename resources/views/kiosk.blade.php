@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Kiosk Absensi - Gojira Vision</title>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('gv-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        body { margin: 0; overflow: hidden; background: #000; cursor: none; }
+        body { margin: 0; overflow: hidden; cursor: none; }
         body.show-cursor { cursor: default; }
     </style>
 </head>
@@ -16,16 +22,24 @@
         {{-- Header --}}
         <div class="kiosk-header d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <i class="bi bi-eye-fill me-2" style="font-size: 1.5rem; color: var(--gv-green);"></i>
-                <span class="fw-bold" style="color: var(--gv-green); font-size: 1.1rem;">GOJIRA VISION</span>
-                <span class="ms-3" style="color: var(--gv-text-dim); font-size: 0.85rem;">Kiosk Absensi</span>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="me-2" style="color: var(--gv-green);">
+                    <path d="M2,22 L2,17 L1,14 L2,12 L4,7 L5,12 L6,10 L8,4 L10,10 L11,8 L13,1.5 L15,9 L16.5,8 L18,9.5 L20,10.5 L22,11.5 L23,12.5 L22,14 L19,13.5 L21,15.5 L23,17 L21,18.5 L18,17 L14.5,18.5 L10,20 L6,21 Z"/>
+                </svg>
+                <span class="fw-bold kiosk-brand-text">GOJIRA VISION</span>
+                <span class="ms-3 kiosk-subtitle-text">Kiosk Absensi</span>
             </div>
             <div class="d-flex align-items-center gap-4">
                 <div id="status-indicator" class="d-flex align-items-center">
                     <span class="rounded-circle me-2" style="width: 8px; height: 8px; background: var(--gv-warning); display: inline-block;"></span>
-                    <span id="status-text" style="color: var(--gv-text-muted); font-size: 0.85rem;">Memuat...</span>
+                    <span id="status-text" class="kiosk-status-text">Memuat...</span>
                 </div>
-                <a href="{{ route('login') }}" class="show-cursor" style="color: var(--gv-text-dim); font-size: 0.8rem; text-decoration: none; cursor: pointer;">
+                {{-- Theme Toggle --}}
+                <div class="theme-toggle show-cursor" id="themeToggle" onclick="toggleTheme()" title="Ganti tema" style="cursor: pointer;">
+                    <div class="toggle-thumb">
+                        <i class="bi" id="themeIcon"></i>
+                    </div>
+                </div>
+                <a href="{{ route('login') }}" class="show-cursor kiosk-exit-link">
                     <i class="bi bi-box-arrow-right"></i> Keluar
                 </a>
             </div>
@@ -286,12 +300,12 @@
         entry.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <div class="fw-bold" style="color: var(--gv-text); font-size: 0.9rem;">${name}</div>
-                    <div style="color: var(--gv-text-dim); font-size: 0.75rem;">${position || '-'}</div>
+                    <div class="kiosk-log-name">${name}</div>
+                    <div class="kiosk-log-position">${position || '-'}</div>
                 </div>
                 <div class="text-end">
-                    <div style="color: var(--gv-green); font-size: 0.85rem;">${typeLabels[type] || type}</div>
-                    <div style="color: var(--gv-text-muted); font-size: 0.75rem;">${time}</div>
+                    <div class="kiosk-log-type">${typeLabels[type] || type}</div>
+                    <div class="kiosk-log-time">${time}</div>
                 </div>
             </div>
             ${status === 'terlambat' ? '<div class="mt-1"><span class="badge bg-warning" style="font-size: 0.7rem;">Terlambat</span></div>' : ''}
@@ -315,6 +329,25 @@
         clearTimeout(cursorTimeout);
         cursorTimeout = setTimeout(() => document.body.classList.remove('show-cursor'), 3000);
     });
+
+    // ====== THEME TOGGLE ======
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('gv-theme', next);
+        updateThemeIcon(next);
+    }
+
+    function updateThemeIcon(theme) {
+        const icon = document.getElementById('themeIcon');
+        if (icon) {
+            icon.className = 'bi ' + (theme === 'dark' ? 'bi-moon-fill' : 'bi-sun-fill');
+        }
+    }
+
+    updateThemeIcon(document.documentElement.getAttribute('data-theme') || 'dark');
     </script>
 </body>
 </html>

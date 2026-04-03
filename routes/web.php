@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AttendanceReportController;
@@ -27,6 +29,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('employees', EmployeeController::class)->except('show');
 
     Route::get('/attendances', [AttendanceReportController::class, 'index'])->name('attendances.index');
+
+    Route::resource('departments', DepartmentController::class)->except(['show', 'create', 'edit']);
+
+    Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    Route::post('schedules/bulk-update', [ScheduleController::class, 'bulkUpdate'])->name('schedules.bulkUpdate');
 });
 
 // ============ KARYAWAN ============

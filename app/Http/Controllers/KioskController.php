@@ -43,7 +43,8 @@ class KioskController extends Controller
         }
 
         // Clock in
-        $status = $now->hour >= 8 && $now->minute > 0 ? 'terlambat' : 'hadir';
+        // Cek jadwal karyawan — fallback ke 08:00 jika belum diatur
+        $status = Attendance::determineStatus($userId, $now);
 
         Attendance::create([
             'user_id' => $userId,

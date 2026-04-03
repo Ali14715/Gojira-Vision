@@ -38,6 +38,22 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="department_id" class="form-label">Departemen</label>
+                        <select class="form-select @error('department_id') is-invalid @enderror"
+                                id="department_id" name="department_id">
+                            <option value="">-- Pilih Departemen --</option>
+                            @foreach($departments as $dept)
+                                <option value="{{ $dept->id }}" {{ old('department_id') == $dept->id ? 'selected' : '' }}>
+                                    {{ $dept->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('department_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="phone" class="form-label">Telepon</label>
                         <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                id="phone" name="phone" value="{{ old('phone') }}">

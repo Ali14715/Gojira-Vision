@@ -39,8 +39,8 @@ class AttendanceController extends Controller
             return response()->json(['message' => 'Anda sudah absen masuk hari ini.'], 422);
         }
 
-        // Jam masuk standar: 08:00 — lebih dari itu = terlambat
-        $status = $now->hour >= 8 && $now->minute > 0 ? 'terlambat' : 'hadir';
+        // Cek jadwal karyawan — fallback ke 08:00 jika belum diatur
+        $status = Attendance::determineStatus($userId, $now);
 
         Attendance::create([
             'user_id' => $userId,
@@ -79,11 +79,13 @@ class AttendanceController extends Controller
 
         $attendance->update([
             'clock_out' => Carbon::now()->toTimeString(),
+            'clock_out_status' => Attendance::determineClockOutStatus($userId, Carbon::now()),
         ]);
 
         return response()->json([
             'message' => 'Absen pulang berhasil!',
             'time' => Carbon::now()->format('H:i:s'),
+            'clock_out_status' => $attendance->fresh()->clock_out_status,
         ]);
     }
 }
