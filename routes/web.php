@@ -18,6 +18,8 @@ Route::get('/', fn() => redirect()->route('login'));
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
@@ -29,6 +31,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('employees', EmployeeController::class)->except('show');
 
     Route::get('/attendances', [AttendanceReportController::class, 'index'])->name('attendances.index');
+    Route::get('/attendances/export', [AttendanceReportController::class, 'export'])->name('attendances.export');
 
     Route::resource('departments', DepartmentController::class)->except(['show', 'create', 'edit']);
 
@@ -60,3 +63,4 @@ Route::middleware('auth')->group(function () {
 Route::get('/kiosk', [KioskController::class, 'index'])->name('kiosk');
 Route::post('/kiosk/clock', [KioskController::class, 'clockIn'])->name('kiosk.clock');
 Route::get('/kiosk/descriptors', [KioskController::class, 'descriptors'])->name('kiosk.descriptors');
+Route::post('/kiosk/lookup', [KioskController::class, 'lookup'])->name('kiosk.lookup');

@@ -21,7 +21,19 @@ class User extends Authenticatable
         'department_id',
         'phone',
         'face_registered',
+        'employee_id',
     ];
+
+    public static function generateEmployeeId(): string
+    {
+        $last = static::whereNotNull('employee_id')
+            ->orderByRaw("CAST(employee_id AS UNSIGNED) DESC")
+            ->value('employee_id');
+
+        $nextNumber = $last ? (int) $last + 1 : 1;
+
+        return str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
 
     protected $hidden = [
         'password',

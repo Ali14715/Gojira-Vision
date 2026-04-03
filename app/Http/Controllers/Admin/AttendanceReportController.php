@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\AttendanceExport;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceReportController extends Controller
 {
@@ -27,5 +28,15 @@ class AttendanceReportController extends Controller
         $attendances->appends($request->query());
 
         return view('admin.attendances.index', compact('attendances', 'date', 'search'));
+    }
+
+    public function export(Request $request)
+    {
+        $date = $request->input('date', Carbon::today()->toDateString());
+        $search = $request->input('search');
+
+        $filename = 'absensi_' . $date . '.xlsx';
+
+        return Excel::download(new AttendanceExport($date, $search), $filename);
     }
 }

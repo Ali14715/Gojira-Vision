@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'karyawan',
             'position' => 'Staff IT',
             'phone' => '081234567890',
+            'employee_id' => '0001',
         ]);
     }
 }

@@ -11,7 +11,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = User::where('role', 'karyawan')->with('department')->latest()->paginate(10);
+        $employees = User::where('role', 'karyawan')->with(['department', 'faceDescriptors', 'workSchedules'])->latest()->paginate(10);
         return view('admin.employees.index', compact('employees'));
     }
 
@@ -33,6 +33,7 @@ class EmployeeController extends Controller
         ]);
 
         $validated['role'] = 'karyawan';
+        $validated['employee_id'] = User::generateEmployeeId();
 
         User::create($validated);
 

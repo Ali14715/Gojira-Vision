@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Gojira Vision</title>
+    <title>Daftar - Gojira Vision</title>
     <script>
         (function() {
             const theme = localStorage.getItem('gv-theme') || 'dark';
@@ -46,8 +46,8 @@
                         <path d="M2,22 L2,17 L1,14 L2,12 L4,7 L5,12 L6,10 L8,4 L10,10 L11,8 L13,1.5 L15,9 L16.5,8 L18,9.5 L20,10.5 L22,11.5 L23,12.5 L22,14 L19,13.5 L21,15.5 L23,17 L21,18.5 L18,17 L14.5,18.5 L10,20 L6,21 Z"/>
                     </svg>
                 </div>
-                <h2 class="fw-bold login-title" style="letter-spacing: -1px;">Gojira Vision</h2>
-                <p class="login-subtitle">Sistem Absensi Citra Wajah</p>
+                <h2 class="fw-bold login-title" style="letter-spacing: -1px;">Buat Akun</h2>
+                <p class="login-subtitle">Daftar untuk mulai absensi</p>
             </div>
 
             <div class="card">
@@ -60,8 +60,19 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                                <input type="text" class="form-control" id="name" name="name"
+                                       value="{{ old('name') }}" placeholder="Masukkan nama lengkap" required autofocus>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <div class="input-group">
@@ -69,7 +80,7 @@
                                     <i class="bi bi-envelope"></i>
                                 </span>
                                 <input type="email" class="form-control" id="email" name="email"
-                                       value="{{ old('email') }}" placeholder="nama@email.com" required autofocus>
+                                       value="{{ old('email') }}" placeholder="nama@email.com" required>
                             </div>
                         </div>
 
@@ -80,24 +91,30 @@
                                     <i class="bi bi-lock"></i>
                                 </span>
                                 <input type="password" class="form-control" id="password" name="password"
-                                       placeholder="Masukkan password" required>
+                                       placeholder="Minimal 6 karakter" required>
                             </div>
                         </div>
 
-                        <div class="mb-4 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">Ingat saya</label>
+                        <div class="mb-4">
+                            <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-lock-fill"></i>
+                                </span>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                                       placeholder="Ulangi password" required>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100 py-2">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
+                            <i class="bi bi-person-plus me-1"></i> Daftar
                         </button>
                     </form>
 
                     <div class="neo-divider mt-3">atau</div>
 
                     <div class="text-center auth-switch-link">
-                        Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
+                        Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
                     </div>
                 </div>
             </div>
@@ -106,13 +123,6 @@
                 <a href="{{ route('kiosk') }}" class="login-kiosk-link">
                     <i class="bi bi-display me-1"></i> Buka Mode Kiosk
                 </a>
-            </div>
-
-            {{-- Tech tags --}}
-            <div class="text-center mt-3 d-flex justify-content-center gap-2 flex-wrap">
-                <span class="neo-tag">Laravel 13</span>
-                <span class="neo-tag green">face-api.js</span>
-                <span class="neo-tag">Bootstrap 5</span>
             </div>
         </div>
     </div>

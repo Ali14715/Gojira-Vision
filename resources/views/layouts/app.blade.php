@@ -21,7 +21,7 @@
         <nav class="sidebar d-flex flex-column" style="width: 260px; min-width: 260px;">
             <div class="brand">
                 <a class="text-decoration-none d-flex align-items-center" href="#">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" class="me-2" style="color: var(--gv-green);">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26" class="me-2" style="color: var(--gv-green);">
                         <path d="M2,22 L2,17 L1,14 L2,12 L4,7 L5,12 L6,10 L8,4 L10,10 L11,8 L13,1.5 L15,9 L16.5,8 L18,9.5 L20,10.5 L22,11.5 L23,12.5 L22,14 L19,13.5 L21,15.5 L23,17 L21,18.5 L18,17 L14.5,18.5 L10,20 L6,21 Z"/>
                     </svg>
                     <h5 class="mb-0">Gojira Vision</h5>
@@ -101,7 +101,7 @@
             <div class="mt-auto p-3 sidebar-footer">
                 {{-- Theme Toggle --}}
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted" style="font-size: 0.75rem;">Tema</span>
+                    <span class="text-muted" style="font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; text-transform: uppercase;">Tema</span>
                     <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Ganti tema">
                         <div class="toggle-thumb">
                             <i class="bi" id="themeIcon"></i>
