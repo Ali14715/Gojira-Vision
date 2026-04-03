@@ -153,7 +153,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ====== SIDEBAR ====== */
 .sidebar {
-    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
     background: var(--gv-bg-sidebar);
     border-right: 3px solid var(--gv-border);
     transition: background 0.2s ease, border-color 0.2s ease;
@@ -870,6 +873,79 @@ h1, h2, h3, h4, h5, h6 {
 
 .webcam-container video {
     background: #000;
+}
+
+/* ====== PAGINATION (Neobrutalism) ====== */
+.neo-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.neo-pagination ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 6px;
+}
+
+.neo-pagination li span,
+.neo-pagination li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid var(--gv-border);
+    border-radius: 6px;
+    background: var(--gv-bg-card);
+    color: var(--gv-text);
+    transition: all 0.15s ease;
+}
+
+.neo-pagination li a:hover {
+    border-color: var(--gv-green);
+    color: var(--gv-green);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0px var(--gv-green);
+}
+
+.neo-pagination li.active span {
+    background: var(--gv-green);
+    border-color: var(--gv-green);
+    color: #000;
+    box-shadow: 3px 3px 0px var(--gv-border);
+    font-weight: 800;
+}
+
+.neo-pagination li.disabled span {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.neo-pagination li.dots span {
+    border: none;
+    background: none;
+    min-width: 24px;
+    padding: 0;
+    color: var(--gv-text-dim);
+}
+
+.neo-pagination-info {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gv-text-dim);
 }
 
 /* ====== KIOSK MODE ====== */

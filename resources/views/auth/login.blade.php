@@ -107,13 +107,6 @@
                     <i class="bi bi-display me-1"></i> Buka Mode Kiosk
                 </a>
             </div>
-
-            {{-- Tech tags --}}
-            <div class="text-center mt-3 d-flex justify-content-center gap-2 flex-wrap">
-                <span class="neo-tag">Laravel 13</span>
-                <span class="neo-tag green">face-api.js</span>
-                <span class="neo-tag">Bootstrap 5</span>
-            </div>
         </div>
     </div>
 

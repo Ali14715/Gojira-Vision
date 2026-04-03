@@ -4,7 +4,7 @@
 
 @section('content')
 {{-- Filter Bar --}}
-<div class="card border-0 shadow-sm mb-3">
+<div class="card mb-3">
     <div class="card-body py-3">
         <form method="GET" action="{{ route('admin.schedules.index') }}" class="row g-2 align-items-end">
             <div class="col-md-4">
@@ -49,11 +49,11 @@
 </div>
 
 {{-- Employee Table --}}
-<div class="card border-0 shadow-sm">
+<div class="card">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
-                <thead class="table-light">
+                <thead>
                     <tr>
                         <th style="width: 40px;">
                             <input type="checkbox" class="form-check-input" id="select-all">
@@ -89,8 +89,9 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center text-muted py-4">
-                                Tidak ada karyawan ditemukan.
+                            <td colspan="5" class="text-center py-4" style="color: var(--gv-text-dim);">
+                                <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                                <p class="mt-2 mb-0">Tidak ada karyawan ditemukan.</p>
                             </td>
                         </tr>
                     @endforelse

@@ -10,11 +10,11 @@
     </button>
 </div>
 
-<div class="card border-0 shadow-sm">
+<div class="card">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
-                <thead class="table-light">
+                <thead>
                     <tr>
                         <th>#</th>
                         <th>Nama Departemen</th>
@@ -25,29 +25,41 @@
                 <tbody>
                     @forelse($departments as $index => $dept)
                         <tr>
-                            <td>{{ $departments->firstItem() + $index }}</td>
-                            <td>{{ $dept->name }}</td>
+                            <td><span class="neo-tag" style="font-size: 0.75rem;">{{ $departments->firstItem() + $index }}</span></td>
                             <td>
-                                <span class="badge bg-info">{{ $dept->users_count }} karyawan</span>
+                                <div class="d-flex align-items-center">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center me-2 sidebar-avatar" style="width: 30px; height: 30px; font-size: 0.7rem;">
+                                        <i class="bi bi-building"></i>
+                                    </div>
+                                    <span style="font-weight: 600;">{{ $dept->name }}</span>
+                                </div>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-outline-primary"
-                                        onclick="openEdit({{ $dept->id }}, '{{ addslashes($dept->name) }}')">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <form action="{{ route('admin.departments.destroy', $dept) }}" method="POST" class="d-inline"
-                                      onsubmit="return confirm('Yakin hapus departemen ini? Karyawan di dalamnya tidak akan dihapus.')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-trash"></i>
+                                <span class="neo-tag green">{{ $dept->users_count }} karyawan</span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-1">
+                                    <button class="btn btn-sm btn-outline-primary"
+                                            onclick="openEdit({{ $dept->id }}, '{{ addslashes($dept->name) }}')" title="Edit">
+                                        <i class="bi bi-pencil"></i>
                                     </button>
-                                </form>
+                                    <form action="{{ route('admin.departments.destroy', $dept) }}" method="POST" class="d-inline"
+                                          onsubmit="return confirm('Yakin hapus departemen ini? Karyawan di dalamnya tidak akan dihapus.')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-outline-danger" title="Hapus">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-4">Belum ada departemen.</td>
+                            <td colspan="4" class="text-center py-4" style="color: var(--gv-text-dim);">
+                                <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                                <p class="mt-2 mb-0">Belum ada departemen.</p>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
